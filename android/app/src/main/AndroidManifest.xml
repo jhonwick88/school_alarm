@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.school_alarm">
    <application
-        android:label="school_alarm"
+        android:label="Alarm Sekolah"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
