@@ -1,7 +1,9 @@
+import 'package:timezone/timezone.dart' as tz;
+
 class AlarmInfo {
   int? id;
   String title;
-  DateTime alarmDateTime;
+  tz.TZDateTime alarmDateTime;
   bool? isPending;
   int gradientColorIndex;
 
@@ -15,7 +17,7 @@ class AlarmInfo {
   factory AlarmInfo.fromMap(Map<String, dynamic> json) => AlarmInfo(
         id: json["id"],
         title: json["title"],
-        alarmDateTime: json["alarmDateTime"],
+        alarmDateTime: tz.TZDateTime.parse(tz.local, json["alarmDateTime"]),
         isPending: json["isPending"],
         gradientColorIndex: json["gradientColorIndex"],
       );
