@@ -6,6 +6,7 @@ import 'package:school_alarm/enums.dart';
 import 'package:school_alarm/models/menu_info.dart';
 import 'package:school_alarm/views/alarm_page.dart';
 import 'package:school_alarm/views/clock_page.dart';
+import 'package:school_alarm/views/page_satu.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key? key, required this.title}) : super(key: key);
@@ -37,7 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 else if (value.menuType == MenuType.alarm)
                   return AlarmPage();
                 else
-                  return Container(child: Text('yesss'));
+                  return PageSatu();
               },
             ))
           ],

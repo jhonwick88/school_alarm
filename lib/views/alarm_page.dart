@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -6,6 +8,7 @@ import 'package:school_alarm/alarm_helper.dart';
 import 'package:school_alarm/constants/theme_data.dart';
 import 'package:school_alarm/main.dart';
 import 'package:school_alarm/models/alarm_info.dart';
+import 'package:school_alarm/notification_service.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
@@ -17,6 +20,25 @@ class AlarmPage extends StatefulWidget {
 }
 
 class _AlarmPageState extends State<AlarmPage> {
+  NotificationService notificationService = NotificationService();
+  DateTime currentDate = DateTime.now();
+  DateTime? eventDate;
+  TimeOfDay currentTime = TimeOfDay.now();
+  TimeOfDay? eventTime;
+  Future<void> onCreate() async {
+    await notificationService.showNotification(
+      0,
+      "Yess coba",
+      "A new event has been created.",
+      jsonEncode({
+        "title": "Yess coba",
+        "eventDate": DateFormat("EEEE, d MMM y").format(currentDate),
+        "eventTime": currentTime.format(context),
+      }),
+    );
+  }
+
+  //original
   late tz.TZDateTime _alarmTime;
   late String _alarmTimeString;
   AlarmHelper _alarmHelper = AlarmHelper();
@@ -142,6 +164,8 @@ class _AlarmPageState extends State<AlarmPage> {
                             ),
                           );
                         }).followedBy([
+                          ElevatedButton(
+                              onPressed: onCreate, child: Text('Show Notif')),
                           if (_currentAlarms.length < 5)
                             DottedBorder(
                               strokeWidth: 2,

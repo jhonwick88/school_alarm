@@ -3,33 +3,36 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:provider/provider.dart';
 import 'package:school_alarm/enums.dart';
 import 'package:school_alarm/models/menu_info.dart';
+import 'package:school_alarm/notification_service.dart';
 import 'package:school_alarm/views/myhome_page.dart';
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  var initializationSettingsAndroid =
-      AndroidInitializationSettings('pintarmedia_logo');
-  var initialoonSettingIOS = IOSInitializationSettings(
-    requestAlertPermission: true,
-    requestBadgePermission: true,
-    requestSoundPermission: true,
-    onDidReceiveLocalNotification: (id, title, body, payload) {},
-  );
-  var initializationSettings = InitializationSettings(
-    android: initializationSettingsAndroid,
-    iOS: initialoonSettingIOS,
-  );
-  await flutterLocalNotificationsPlugin.initialize(
-    initializationSettings,
-    onSelectNotification: (payload) async {
-      if (payload != null) {
-        debugPrint('notifikasi payload : ' + payload);
-      }
-    },
-  );
+  NotificationService notificationService = NotificationService();
+  await notificationService.init();
+  await notificationService.requestIOSPermissions();
+  // var initializationSettingsAndroid =
+  //     AndroidInitializationSettings('pintarmedia_logo');
+  // var initialoonSettingIOS = IOSInitializationSettings(
+  //   requestAlertPermission: true,
+  //   requestBadgePermission: true,
+  //   requestSoundPermission: true,
+  //   onDidReceiveLocalNotification: (id, title, body, payload) {},
+  // );
+  // var initializationSettings = InitializationSettings(
+  //   android: initializationSettingsAndroid,
+  //   iOS: initialoonSettingIOS,
+  // );
+  // await flutterLocalNotificationsPlugin.initialize(
+  //   initializationSettings,
+  //   onSelectNotification: (payload) async {
+  //     if (payload != null) {
+  //       debugPrint('notifikasi payload : ' + payload);
+  //     }
+  //   },
+  // );
   runApp(MyApp());
 }
 

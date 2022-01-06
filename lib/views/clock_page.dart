@@ -10,6 +10,7 @@ class ClockPage extends StatefulWidget {
 class _ClockPageState extends State<ClockPage> {
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text("clock pagee"));
+    return Center(
+        child: ElevatedButton(onPressed: () {}, child: Text("YES TEKAN INI")));
   }
 }
